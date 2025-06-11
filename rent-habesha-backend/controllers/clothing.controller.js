@@ -162,7 +162,7 @@ export const getClothingItemById = async (req, res) => {
                 message: 'Clothing item not found'
             });
         }
-Q
+
         const relatedItems = await ClothingItem.find({
             owner: item.owner._id,
             _id: { $ne: item._id },
