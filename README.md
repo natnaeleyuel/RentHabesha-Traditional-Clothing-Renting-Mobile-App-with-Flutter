@@ -1,6 +1,4 @@
-# rent_habesha_flutter_app
 
-A new Flutter project.
 
 ## Getting Started
 
