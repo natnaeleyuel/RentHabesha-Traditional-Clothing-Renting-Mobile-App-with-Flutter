@@ -1,0 +1,25 @@
+{
+  "name": "renthabesha mobile app",
+  "version": "1.0.0",
+  "description": "Welcome to the RentHabesha Mobile App, all in one place!",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "deep-email-validator": "^0.1.21",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.1",
+    "multer": "^1.4.5-lts.2",
+    "nodemailer": "^7.0.3"
+  }
+}
