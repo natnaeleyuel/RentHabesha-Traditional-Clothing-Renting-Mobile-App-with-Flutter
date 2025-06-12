@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import  mongoose from  'mongoose';
 
 // Asynchronously connect to MongoDB using the URI from environment variables.
 // Log success or, on failure, log the error and exit the process
