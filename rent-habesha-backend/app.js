@@ -33,6 +33,8 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/payments', paymentRoutes)
 
+// Handle GET requests to '/api/auth/register' endpoint,
+// log the request, and send a confirmation JSON response.
 app.get('/api/auth/register', (req, res) => {
   console.log('GET request received');
   res.json({ message: 'Backend is working!' });
