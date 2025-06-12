@@ -10,39 +10,39 @@ const paymentService = {
         throw new Error('Cart is empty');
       }
 
-      for (const item of cart.items) {
-        const clothing = await ClothingItem.findById(item.clothingItem._id);
-        if (!clothing.availability) {
-          throw new Error(`${item.clothingItem.title} is no longer available`);
+      for (const item of cart.items){
+        const clothing = await ClothingItem.findById(item.clothingItem._id) ;
+        if (!clothing.availability){
+          throw new Error(`${item.clothingItem.title} is no longer available`) ;
         }
       }
 
       const renting = await Promise.all(cart.items.map(async (item) => {
-        const days = Math.ceil((item.endDate - item.startDate) / (1000 * 60 * 60 * 24));
-        const totalPrice = days * item.pricePerDay;
+        const days = Math.ceil((item.endDate - item.startDate) / (1000 * 60 * 60 * 24)) ;
+        const totalPrice = days * item.pricePerDay ;
 
-        return await Renting.create({
-          clothingItem: item.clothingItem._id,
+        return await Renting.create ( {
+          clothingItem: item.clothingItem._id ,
           renter: userId,
-          owner: item.clothingItem.owner,
-          startDate: item.startDate,
+          owner: item.clothingItem.owner ,
+          startDate: item.startDate ,
           endDate: item.endDate,
-          totalPrice,
-          paymentMethod,
-          cardLast4: paymentMethod.cardNumber.slice(-4),
+          totalPrice ,
+          paymentMethod ,
+          cardLast4: paymentMethod.cardNumber.slice(-4) ,
           paymentStatus: 'pending'
-        });
-      }));
+        }) ;
+      })) ;
 
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 1500)) ;
       const isSuccess = Math.random() < 0.85;
 
       if (!isSuccess) {
-        throw new Error('Payment failed: Insufficient funds');
+        throw new Error('Payment failed: Insufficient funds') ;
       }
 
-      const transactionId = `txn_${Math.random().toString(36).substring(2, 15)}`;
-      await Renting.updateMany(
+      const transactionId =`txn_${Math.random().toString(36).substring(2, 15)}` ;
+      await Renting.updateMany (
         { _id: { $in: bookings.map(b => b._id) } },
         {
           paymentStatus: 'paid',
@@ -52,25 +52,25 @@ const paymentService = {
       );
 
       await ClothingItem.updateMany(
-        { _id: { $in: cart.items.map(i => i.clothingItem._id) } },
+        { _id: { $in: cart.items.map(i => i.clothingItem._id) } } ,
         { availability: false }
-      );
+      ) ;
 
-      await Cart.deleteOne({ user: userId });
+      await Cart.deleteOne({ user: userId }) ;
 
-      return {
-        success: true,
-        transactionId,
-        renting: renting.map(b => b._id)
+      return{
+        success: true ,
+        transactionId ,
+        renting: renting.map(b => b._id )
       };
 
     }// Re-throw the error after updating booking statuses so it can be handled by higher-level error handler
     catch (error) {
-      await Booking.updateMany(
-        { renter: userId, paymentStatus: 'pending' },
-        { paymentStatus: 'failed' }
+      await Booking.updateMany (
+        { renter: userId, paymentStatus: 'pending'},
+        { paymentStatus: 'failed'}
       );
-      throw error;
+      throw error ;
     }
   }
 };
