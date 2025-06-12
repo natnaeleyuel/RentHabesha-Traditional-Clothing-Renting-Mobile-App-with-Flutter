@@ -64,7 +64,7 @@ const paymentService = {
         renting: renting.map(b => b._id)
       };
 
-    }// Re-throw the error after updating booking statuses so it can be handled by higher-level error handlers
+    }// Re-throw the error after updating booking statuses so it can be handled by higher-level error handler
     catch (error) {
       await Booking.updateMany(
         { renter: userId, paymentStatus: 'pending' },

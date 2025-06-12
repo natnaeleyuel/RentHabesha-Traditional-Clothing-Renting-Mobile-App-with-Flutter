@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`RentHabesha backend running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });
-// Listen for unhandled promise rejections, log the error message
+// Listen for unhandled promise rejections, log the error mesage
 process.on('unhandledRejection', (err) => {
   console.error(`Unhandled Rejection: ${err.message}`);
   server.close(() => process.exit(1));
